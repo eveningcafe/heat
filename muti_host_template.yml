@@ -1,0 +1,28 @@
+heat_template_version: 2013-05-23
+
+parameters:
+  image_name:
+    type: string
+    label: Image Name
+    default: cirros
+  network_id:
+    type: string
+    default: 2b0756c1-b74a-4d1f-835c-cc2f66a0bdd3
+
+resources:
+  my_instance1:
+    type: OS::Nova::Server
+    properties:
+      image: { get_param: image_name }
+      flavor: m1.tiny
+      networks:
+        - network : { get_param : network_id }
+      availability_zone: nova:controller
+  my_instance2:
+    type: OS::Nova::Server
+    properties:
+      image: { get_param: image_name }
+      flavor: m1.tiny
+      networks:
+        - network : { get_param : network_id }
+      availability_zone: nova:compute02
